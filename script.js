@@ -10,14 +10,21 @@ let playerScore = 0
 function computerPlay() { 
     const gameOptions = ["Rock", "Paper", "Scissors"];
     return gameOptions[Math.floor(Math.random()*gameOptions.length)];
+}
 
+const selections = document.querySelectorAll('.button');
+selections.forEach((selection) => { selection.addEventListener('click', game);
+});
+
+function playerSelect () {
+    return playerSelection = document.getElementById('button').innerText;
 }
 
 // this function takes what the computer plays and human plays, compares the result and spits out a response...either you win, you lose, or tie game
 
-function gameRound(computerSelection, playerSelection) {
-    if ((computerSelection === "Rock") && (playerSelection === "Rock")) {
-        return "Rock vs Rock. Tie game. Try again! The score is Computer: " + compScore + " vs you: " + playerScore;
+function playRound(computerSelection, playerSelection) {
+    if (computerSelection === playerSelection) {
+        return "Tie. Try again! The score is Computer: " + compScore + " vs you: " + playerScore;
     }
     else if ((computerSelection === "Rock") && (playerSelection === "Paper")) {
         playerScore++;
@@ -27,9 +34,6 @@ function gameRound(computerSelection, playerSelection) {
         compScore++;
         return "Rock beats Scissors. You lose! The score is Computer: " + compScore + " vs you: " + playerScore;
     }
-    else if ((computerSelection === "Scissors") && (playerSelection === "Scissors")) {
-        return "Scissors vs Scissors. Tie game. Try again! The score is Computer: " + compScore + " vs you: " + playerScore;
-    }
     else if ((computerSelection === "Scissors") && (playerSelection === "Paper")) {
         compScore++;
         return "Scissors beats Paper. You lose! The score is Computer: " + compScore + " vs you: " + playerScore;
@@ -37,9 +41,6 @@ function gameRound(computerSelection, playerSelection) {
     else if ((computerSelection === "Scissors") && (playerSelection === "Rock")) {
         playerScore++;
         return "Scissors loses to Rock. You win! The score is Computer: " + compScore + " vs you: " + playerScore;
-    }
-    else if ((computerSelection === "Paper") && (playerSelection === "Paper")) {
-        return "Paper vs Paper. Tie game. Try again! The score is Computer: " + compScore + " vs you: " + playerScore;
     }
     else if ((computerSelection === "Paper") && (playerSelection === "Scissors")) {
         playerScore++;
@@ -57,21 +58,33 @@ function gameRound(computerSelection, playerSelection) {
 // function gets input from the previous two functions and plays the game for 5 rounds. The score is kept track of and a winner is announced at the end of 5 rounds
 
 function game() {
-    for (i = 1; i < 6; i++) {
-        computerSelection = computerPlay();
-        playerSelection = prompt("Rock, Paper or Scissors?");
-        roundResult = gameRound(computerSelection, playerSelection);
-        alert(roundResult);
-        console.log(roundResult);
-    }
+    computerSelection = computerPlay();
+    playerSelection = playerSelect();
+    roundResult = playRound(computerSelection, playerSelection);
     
-    if (playerScore > compScore) {
-        return "The final score is Computer: " + compScore + " vs you: " + playerScore + ". Congratulations, you win!";
+    
+    if (playerScore === 5) {
+        roundResult = "The final score is Computer: " + compScore + " vs you: " + playerScore + ". Congratulations, you win!";
+        const endBtn = document.createElement('button');
+        body.appendChild(endBtn);
+        endBtn.setAttribute('style', 'display: flex; margin-top: 20px');
+        endBtn.textContent = 'Reset Game';
     }
-    else if (playerScore < compScore) {
-        return "The final score is Computer: " + compScore + " vs you: " + playerScore + ". You lose.";
+    if (compScore === 5) {
+        roundResult = "The final score is Computer: " + compScore + " vs you: " + playerScore + ". You lose.";
+        const endBtn = document.createElement('button');
+        body.appendChild(endBtn);
+        endBtn.setAttribute('style', 'display: flex; margin-top: 20px; justify-content: center;');
+        endBtn.textContent = 'Reset Game';
     }
-    else if (playerScore == compScore) {
-        return "The final score is Computer: " + compScore + " vs you: " + playerScore + ". Tie game.";
-    }
+    div.textContent = roundResult;
+
+    
+
 }
+
+const body = document.querySelector('body');
+
+    const div = document.createElement('div');
+    body.appendChild(div);
+    div.setAttribute('style', 'display: flex; margin-top: 20px');
