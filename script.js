@@ -67,15 +67,18 @@ function game() {
         roundResult = "The final score is Computer: " + compScore + " vs you: " + playerScore + ". Congratulations, you win!";
         const endBtn = document.createElement('button');
         body.appendChild(endBtn);
-        endBtn.setAttribute('style', 'display: flex; margin-top: 20px');
+        endBtn.setAttribute('style', 'margin-top: 20px; align-self: center;');
         endBtn.textContent = 'Reset Game';
+        endBtn.addEventListener('click', refreshPage);
+
     }
     if (compScore === 5) {
         roundResult = "The final score is Computer: " + compScore + " vs you: " + playerScore + ". You lose.";
         const endBtn = document.createElement('button');
         body.appendChild(endBtn);
-        endBtn.setAttribute('style', 'display: flex; margin-top: 20px; justify-content: center;');
+        endBtn.setAttribute('style', 'margin-top: 20px; align-self: center;');
         endBtn.textContent = 'Reset Game';
+        endBtn.addEventListener('click', refreshPage);
     }
     div.textContent = roundResult;
 
@@ -83,8 +86,12 @@ function game() {
 
 }
 
+const refreshPage = () => {
+    location.reload();
+}
+
 const body = document.querySelector('body');
 
     const div = document.createElement('div');
     body.appendChild(div);
-    div.setAttribute('style', 'display: flex; margin-top: 20px');
+    div.setAttribute('style', 'margin-top: 20px');
