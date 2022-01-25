@@ -24,62 +24,55 @@ selections.forEach((selection) => { selection.addEventListener('click', () => {
     
 });
 
-
-
-// function playerSelect() { 
-//     playerSelection = selection.textContent;
-//         return playerSelection;
-// }
-// function playerSelect () {
-//     return playerSelection = document.getElementById('button').innerText;
-    
-// }
-
-
-// this function takes what the computer plays and human plays, compares the result and spits out a response...either you win, you lose, or tie game
+// this function takes what the computer plays and human plays, compares the result and spits out a response...either you win, you lose, or tie game, also increases the global variable score each round
 
 function playRound(computerSelection, playerSelection) {
     console.log(playerSelection);
     console.log(computerSelection);
     if (computerSelection === playerSelection) {
-        return "Computer plays: " + computerSelection + ". You play: " + playerSelection + "Tie. Try again! The score is Computer: " + compScore + " vs you: " + playerScore;
+        return "Computer played: " + computerSelection + ". You played: " + playerSelection + ". Tie. Try again! The score is Computer: " + compScore + " vs you: " + playerScore;
     }
-    else if ((computerSelection === "Rock") && (playerSelection === "Paper")) {
+    else if ((computerSelection === "Rock") && (playerSelection === "Paper") || (computerSelection === "Scissors") && (playerSelection === "Rock") || (computerSelection === "Paper") && (playerSelection === "Scissors")) {
         playerScore++;
-        return "Computer plays: " + computerSelection + ". You play: " + playerSelection + " You win! The score is Computer: " + compScore + " vs you: " + playerScore;
+        return "Computer played: " + computerSelection + ". You played: " + playerSelection + ". You win! The score is Computer: " + compScore + " vs you: " + playerScore;
     }
-    else if ((computerSelection === "Rock") && (playerSelection === "Scissors")){
+    else if ((computerSelection === "Rock") && (playerSelection === "Scissors") || (computerSelection === "Scissors") && (playerSelection === "Paper") || (computerSelection === "Paper") && (playerSelection === "Rock")){
         compScore++;
-        return "Computer plays: " + computerSelection + ". You play: " + playerSelection + " You lose! The score is Computer: " + compScore + " vs you: " + playerScore;
-    }
-    else if ((computerSelection === "Scissors") && (playerSelection === "Paper")) {
-        compScore++;
-        return "Computer plays: " + computerSelection + ". You play: " + playerSelection + " You lose! The score is Computer: " + compScore + " vs you: " + playerScore;
-    }
-    else if ((computerSelection === "Scissors") && (playerSelection === "Rock")) {
-        playerScore++;
-        return "Computer plays: " + computerSelection + ". You play: " + playerSelection + " You win! The score is Computer: " + compScore + " vs you: " + playerScore;
-    }
-    else if ((computerSelection === "Paper") && (playerSelection === "Scissors")) {
-        playerScore++;
-        return "Computer plays: " + computerSelection + ". You play: " + playerSelection + " You win! The score is Computer: " + compScore + " vs you: " + playerScore;
-    }
-    else if ((computerSelection === "Paper") && (playerSelection === "Rock")) {
-        compScore++;
-        return "Computer plays: " + computerSelection + ". You play: " + playerSelection + " You lose! The score is Computer: " + compScore + " vs you: " + playerScore;
+        return "Computer played: " + computerSelection + ". You played: " + playerSelection + ". You lose! The score is Computer: " + compScore + " vs you: " + playerScore;
     }
     else {
         return "Invalid selection"
     }
+
+
 }
 
-// function gets input from the previous two functions and plays the game for 5 rounds. The score is kept track of and a winner is announced at the end of 5 rounds
+// calls playRound() and puts result into a div, checks if there is a winner
 
 function game() {
     computerSelection = computerPlay();
-    roundResult = playRound();
+    roundResult = playRound(computerSelection, playerSelection);
     
-    
+    checkWinner();
+   
+    div.textContent = roundResult;
+}
+
+// creates refresh page button
+
+const refreshPage = () => {
+    location.reload();
+}
+
+const body = document.querySelector('body');
+
+    const div = document.createElement('div');
+    body.appendChild(div);
+    div.setAttribute('style', 'margin-top: 20px');
+
+    // checks the score after each round to see if there is a winner
+
+function checkWinner() {
     if (playerScore === 5) {
         roundResult = "The final score is Computer: " + compScore + " vs you: " + playerScore + ". Congratulations, you win!";
         const endBtn = document.createElement('button');
@@ -97,15 +90,4 @@ function game() {
         endBtn.textContent = 'Reset Game';
         endBtn.addEventListener('click', refreshPage);
     }
-    div.textContent = roundResult;
 }
-
-const refreshPage = () => {
-    location.reload();
-}
-
-const body = document.querySelector('body');
-
-    const div = document.createElement('div');
-    body.appendChild(div);
-    div.setAttribute('style', 'margin-top: 20px');
