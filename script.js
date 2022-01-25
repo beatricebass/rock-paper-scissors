@@ -1,54 +1,72 @@
+//global variables to keep track of the score
+let compScore = 0
+let playerScore = 0
+
 // this function generates a play from the computer; rock, paper or scissors
 //store game options in an array
 //generate a random number between 1 and 3
 //the number will correspond to the key in the array, and the corresponding game option
-
-let compScore = 0
-let playerScore = 0
-
-
 function computerPlay() { 
     const gameOptions = ["Rock", "Paper", "Scissors"];
     return gameOptions[Math.floor(Math.random()*gameOptions.length)];
 }
 
+// generate nodelist for game buttons
 const selections = document.querySelectorAll('.button');
-selections.forEach((selection) => { selection.addEventListener('click', game);
+
+// add an event listener to each button, get player selection when pressed, and call game function
+selections.forEach((selection) => { selection.addEventListener('click', () => {
+    playerSelection = selection.textContent;
+    console.log(playerSelection);
+    game();
+    
+    });
+    
 });
 
-function playerSelect () {
-    return playerSelection = document.getElementById('button').innerText;
-}
+
+
+// function playerSelect() { 
+//     playerSelection = selection.textContent;
+//         return playerSelection;
+// }
+// function playerSelect () {
+//     return playerSelection = document.getElementById('button').innerText;
+    
+// }
+
 
 // this function takes what the computer plays and human plays, compares the result and spits out a response...either you win, you lose, or tie game
 
 function playRound(computerSelection, playerSelection) {
+    console.log(playerSelection);
+    console.log(computerSelection);
     if (computerSelection === playerSelection) {
-        return "Tie. Try again! The score is Computer: " + compScore + " vs you: " + playerScore;
+        return "Computer plays: " + computerSelection + ". You play: " + playerSelection + "Tie. Try again! The score is Computer: " + compScore + " vs you: " + playerScore;
     }
     else if ((computerSelection === "Rock") && (playerSelection === "Paper")) {
         playerScore++;
-        return "Rock loses to Paper. You win! The score is Computer: " + compScore + " vs you: " + playerScore;
+        return "Computer plays: " + computerSelection + ". You play: " + playerSelection + " You win! The score is Computer: " + compScore + " vs you: " + playerScore;
     }
     else if ((computerSelection === "Rock") && (playerSelection === "Scissors")){
         compScore++;
-        return "Rock beats Scissors. You lose! The score is Computer: " + compScore + " vs you: " + playerScore;
+        return "Computer plays: " + computerSelection + ". You play: " + playerSelection + " You lose! The score is Computer: " + compScore + " vs you: " + playerScore;
     }
     else if ((computerSelection === "Scissors") && (playerSelection === "Paper")) {
         compScore++;
-        return "Scissors beats Paper. You lose! The score is Computer: " + compScore + " vs you: " + playerScore;
+        return "Computer plays: " + computerSelection + ". You play: " + playerSelection + " You lose! The score is Computer: " + compScore + " vs you: " + playerScore;
     }
     else if ((computerSelection === "Scissors") && (playerSelection === "Rock")) {
         playerScore++;
-        return "Scissors loses to Rock. You win! The score is Computer: " + compScore + " vs you: " + playerScore;
+        return "Computer plays: " + computerSelection + ". You play: " + playerSelection + " You win! The score is Computer: " + compScore + " vs you: " + playerScore;
     }
     else if ((computerSelection === "Paper") && (playerSelection === "Scissors")) {
         playerScore++;
-        return "Paper loses to Scissors. You win! The score is Computer: " + compScore + " vs you: " + playerScore;
+        return "Computer plays: " + computerSelection + ". You play: " + playerSelection + " You win! The score is Computer: " + compScore + " vs you: " + playerScore;
     }
     else if ((computerSelection === "Paper") && (playerSelection === "Rock")) {
         compScore++;
-        return "Paper beats Rock. You lose! The score is Computer: " + compScore + " vs you: " + playerScore;
+        return "Computer plays: " + computerSelection + ". You play: " + playerSelection + " You lose! The score is Computer: " + compScore + " vs you: " + playerScore;
     }
     else {
         return "Invalid selection"
@@ -59,8 +77,7 @@ function playRound(computerSelection, playerSelection) {
 
 function game() {
     computerSelection = computerPlay();
-    playerSelection = playerSelect();
-    roundResult = playRound(computerSelection, playerSelection);
+    roundResult = playRound();
     
     
     if (playerScore === 5) {
@@ -81,9 +98,6 @@ function game() {
         endBtn.addEventListener('click', refreshPage);
     }
     div.textContent = roundResult;
-
-    
-
 }
 
 const refreshPage = () => {
