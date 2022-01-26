@@ -17,7 +17,6 @@ const selections = document.querySelectorAll('.button');
 // add an event listener to each button, get player selection when pressed, and call game function
 selections.forEach((selection) => { selection.addEventListener('click', () => {
     playerSelection = selection.textContent;
-    console.log(playerSelection);
     game();
     
     });
@@ -27,8 +26,6 @@ selections.forEach((selection) => { selection.addEventListener('click', () => {
 // this function takes what the computer plays and human plays, compares the result and spits out a response...either you win, you lose, or tie game, also increases the global variable score each round
 
 function playRound(computerSelection, playerSelection) {
-    console.log(playerSelection);
-    console.log(computerSelection);
     if (computerSelection === playerSelection) {
         return "Computer played: " + computerSelection + ". You played: " + playerSelection + ". Tie. Try again! The score is Computer: " + compScore + " vs you: " + playerScore;
     }
